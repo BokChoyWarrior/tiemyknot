@@ -1,0 +1,47 @@
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.material-icons.large-icon {
+  font-size: 10vw;
+}
+
+.blueButton {
+  background: #074EE8;
+  border: 0;
+  border-radius: 4px;
+  padding: 10px;
+  color: white
+}
+
+.blueButton:hover {
+  cursor:pointer;
+}

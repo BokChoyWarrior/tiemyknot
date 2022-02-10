@@ -1,0 +1,12 @@
+#homeContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.buttonWithIcon {
+    text-align: center;
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    flex-direction: column;
+}
