@@ -20,6 +20,7 @@ const LoginForm = ({ handleSubmit, setIsLoggedIn, isLoggedIn }: any) => {
    if (fakeData.some(el => el.listNumber === parseInt(username)) && fakeData.some(el => el.password === password)){
     setIsLoggedIn({listNumber: username, password: password})   
    }
+   // eslint-disable-line
   }, [username,password])
   
   return (

@@ -6,14 +6,14 @@ export const Gifts = ({ isLoggedIn }: any) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     if(isLoggedIn){
-      let weddingList = fakeData.find((el : FakeDataItem) => el.listNumber == isLoggedIn.listNumber)?.gifts
+      let weddingList = fakeData.find((el : FakeDataItem) => el.listNumber === isLoggedIn.listNumber)?.gifts
       if (weddingList){
         // @ts-ignore
         setData(weddingList)
       }
     }
 
-  });
+  },[isLoggedIn]);
   return isLoggedIn  ? (
     <div className="gift-cards-container">
       {
