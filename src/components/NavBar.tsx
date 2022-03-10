@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '..';
@@ -6,7 +5,7 @@ import { List, RootState } from '..';
 
 import '../styles/NavBar.css';
 
-const NavBar = ({ setUsername, setPassword }: any) => {
+const NavBar = () => {
   const dispatch = useDispatch();
   const currentList: List = useSelector((state: RootState) => state.currentList);
 

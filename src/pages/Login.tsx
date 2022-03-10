@@ -21,7 +21,7 @@ export function Login() {
 const LoginForm = ({ handleSubmit }: any) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const currentList: List = useSelector((state: RootState) => state.currentList);
+  useSelector((state: RootState) => state.currentList);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const LoginForm = ({ handleSubmit }: any) => {
     if (fakeData.some((el) => el.listNumber === numberUsername) && fakeData.some((el) => el.password === password)) {
       dispatch(logIntoList({ listNumber: numberUsername, password: password, gifts: [] }));
     }
-  }, [username, password]);
+  }, [username, password, dispatch]);
 
   return (
     <>
