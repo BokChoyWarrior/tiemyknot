@@ -35,13 +35,13 @@ main {
 }
 
 .blueButton {
-  background: #074EE8;
+  background: #074ee8;
   border: 0;
   border-radius: 4px;
   padding: 10px;
-  color: white
+  color: white;
 }
 
 .blueButton:hover {
-  cursor:pointer;
+  cursor: pointer;
 }

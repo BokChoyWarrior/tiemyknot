@@ -1,46 +1,45 @@
+/* Add some padding inside the card container */
 
-  /* Add some padding inside the card container */
- 
-  .card-title{
-      font-weight: bold;
-      font-size: 150%;
-      padding-top: 16px;
-      padding-bottom: 8px;
-  }
-  .card-description{
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-  .card-buttons{
-      text-align: end;
-      padding-top: 8px;
-      padding-bottom: 8px;
-  }
-  .book {
-    background-color: #074EE8;
-    border: none;
-    color: #ffffff;
-    cursor: pointer;
-  }
-  .booked{
-    background-color: #EEEEEE;
-    border: 1px solid rgba(0, 0, 0, 0.49);;
-    color: #767676;
-    cursor: not-allowed;
-  }
-  
-  .booked-by-you{    
-    background-color: #BC31EA;
-    border: none;
-    color: #EEEEEE;
-    cursor: not-allowed;
-  }
-  .button {
-    border-radius: 4px;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-  }
+.card-title {
+  font-weight: bold;
+  font-size: 150%;
+  padding-top: 16px;
+  padding-bottom: 8px;
+}
+.card-description {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.card-buttons {
+  text-align: end;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.book {
+  background-color: #074ee8;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.booked {
+  background-color: #eeeeee;
+  border: 1px solid rgba(0, 0, 0, 0.49);
+  color: #767676;
+  cursor: not-allowed;
+}
+
+.booked-by-you {
+  background-color: #bc31ea;
+  border: none;
+  color: #eeeeee;
+  cursor: not-allowed;
+}
+.button {
+  border-radius: 4px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+}
