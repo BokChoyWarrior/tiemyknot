@@ -17,4 +17,4 @@ jobs:
       - run: npm i
       - run: npm run build
       - run: npm i -g surge
-      - run: surge ./ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+      - run: surge ./build/ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
