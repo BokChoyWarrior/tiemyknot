@@ -1,25 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { fakeData } from '../fakeData/fakeData';
 import '../styles/Login.css';
-
-export function Login() {
+import {Navigate} from 'react-router-dom'
+export function Login({isLoggedIn, setIsLoggedIn} : any) { 
+  
   return (
+    isLoggedIn ?  <Navigate to='/gifts'/> :
     <div className="container">
       <h1>Access a wedding list</h1>
-      <LoginForm></LoginForm>
+      <LoginForm setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}></LoginForm>
     </div>
   );
 }
 
-const LoginForm = ({ handleSubmit }: any) => {
+const LoginForm = ({ handleSubmit, setIsLoggedIn, isLoggedIn }: any) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  useEffect(() => {
+   if (fakeData.some(el => el.listNumber === parseInt(username)) && fakeData.some(el => el.password === password)){
+    setIsLoggedIn({listNumber: username, password: password})   
+   }
+  }, [username,password])
+  
   return (
     <>
       <FormField label="Wedding code" type="text" data={username} setData={setUsername}></FormField>
       <FormField label="Password" type="password" data={password} setData={setPassword}></FormField>
     </>
   );
-};
+};         
 
 const FormField = ({ label, type, hidden = false, data, setData }: any) => {
   return (

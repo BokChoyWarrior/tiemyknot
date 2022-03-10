@@ -1,12 +1,27 @@
-import { FakeDataItem } from '../fakeData/fakeData';
+import { fakeData, FakeDataItem, giftObjects } from '../fakeData/fakeData';
 import { GiftCard } from '../components/GiftCard';
 import '../styles/Gifts.css';
-export const Gifts = ({ gifts }: { gifts: FakeDataItem[] }) => {
-  return (
+import { useEffect, useState } from 'react';
+export const Gifts = ({ isLoggedIn }: any) => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    if(isLoggedIn){
+      let weddingList = fakeData.find((el : FakeDataItem) => el.listNumber == isLoggedIn.listNumber)?.gifts
+      if (weddingList){
+        // @ts-ignore
+        setData(weddingList)
+      }
+    }
+
+  });
+  return isLoggedIn  ? (
     <div className="gift-cards-container">
-      {gifts.map((gift) => {
-        return <GiftCard gift={gift} />;
-      })}
+      {
+        data.map((gift: giftObjects) => {
+          return <GiftCard gift={gift} />;
+        })}
     </div>
+  ) : (
+    <div className="gift-cards-container">You are not logged in</div>
   );
 };

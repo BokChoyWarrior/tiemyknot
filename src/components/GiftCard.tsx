@@ -1,5 +1,5 @@
 import '../styles/GiftCard.css';
-import { FakeDataItem } from '../fakeData/fakeData';
+import { giftObjects } from '../fakeData/fakeData';
 import Card from './Card';
 
 const buttonStatuses = {
@@ -8,7 +8,7 @@ const buttonStatuses = {
   2: { className: 'booked-by-you', buttonText: 'Reserved by you!' },
 };
 
-export const GiftCard = ({ gift }: { gift: FakeDataItem }) => {
+export const GiftCard = ({ gift }: { gift: giftObjects }) => {
   const giftStatus = gift.status as keyof typeof buttonStatuses; // weird typescript shit LOL
   // basically ocnverts gift.status to a key of buttonStatuses so that typescript knows we arent accessing, e.g, buttonStatuses[4]
   const buttonType = buttonStatuses[giftStatus].className;
