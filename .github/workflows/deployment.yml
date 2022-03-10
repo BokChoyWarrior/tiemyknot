@@ -10,6 +10,7 @@ jobs:
     name: Deploy to surge
     steps:
       - uses: actions/checkout@v3
+
       - name: Setup node
         uses: actions/setup-node@v3
         with:
@@ -17,4 +18,13 @@ jobs:
       - run: npm i
       - run: npm run build
       - run: npm i -g surge
-      - run: surge ./build/ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+
+      # Make sure that a user entering a specific url will be correctly directed
+      # See: https://stackoverflow.com/questions/43855529/surge-deployed-react-app-getting-404-page-not-found
+      - name: Correct routing for surge
+        run: |
+          cd build
+          cp index.html 200.html
+
+      - name: Deploy
+        run: surge ./ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
