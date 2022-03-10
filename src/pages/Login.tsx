@@ -18,7 +18,7 @@ export function Login() {
   );
 }
 
-const LoginForm = ({ handleSubmit }: any) => {
+const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   useSelector((state: RootState) => state.currentList);
