@@ -2,26 +2,33 @@ import { useEffect, useState } from 'react';
 import { fakeData } from '../fakeData/fakeData';
 import '../styles/Login.css';
 import { Navigate } from 'react-router-dom';
-export function Login({ isLoggedIn, setIsLoggedIn }: any) {
+export function Login({ isLoggedIn, setIsLoggedIn, username, password, setUsername, setPassword }: any) {
   return isLoggedIn ? (
     <Navigate to="/gifts" />
   ) : (
     <div className="container">
       <h1>Access a wedding list</h1>
-      <LoginForm setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}></LoginForm>
+      <LoginForm
+        setIsLoggedIn={setIsLoggedIn}
+        isLoggedIn={isLoggedIn}
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+      ></LoginForm>
     </div>
   );
 }
 
-const LoginForm = ({ handleSubmit, setIsLoggedIn, isLoggedIn }: any) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const LoginForm = ({ handleSubmit, setIsLoggedIn, username, password, setUsername, setPassword }: any) => {
   useEffect(() => {
     if (
       fakeData.some((el) => el.listNumber === parseInt(username)) &&
       fakeData.some((el) => el.password === password)
     ) {
       setIsLoggedIn({ listNumber: username, password: password });
+    } else if (username === '' && password === '') {
+      setIsLoggedIn(null);
     }
   }, [username, password]);
 

@@ -16,9 +16,14 @@ export function Home(props: any) {
       <div className="buttonWithIcon">
         <span className="material-icons large-icon">checklist_rtl</span>
         <button className="blueButton" onClick={() => navigate('/access')}>
-          Access a wedding list
+          {props.isLoggedIn ? `Access list number ${props.isLoggedIn.listNumber}` : "Access a wedding list"}
         </button>
+       
       </div>
+
+      
+       
+     
     </div>
   );
 }
