@@ -2,33 +2,32 @@ import { useEffect, useState } from 'react';
 import { fakeData } from '../fakeData/fakeData';
 import '../styles/Login.css';
 import { Navigate } from 'react-router-dom';
-export function Login({ isLoggedIn, setIsLoggedIn, username, password, setUsername, setPassword }: any) {
-  return isLoggedIn ? (
+import { useSelector, useDispatch } from 'react-redux';
+import { List, RootState, logIntoList } from '..';
+
+export function Login() {
+  const currentList: List = useSelector((state: RootState) => state.currentList);
+
+  return currentList ? (
     <Navigate to="/gifts" />
   ) : (
     <div className="container">
       <h1>Access a wedding list</h1>
-      <LoginForm
-        setIsLoggedIn={setIsLoggedIn}
-        isLoggedIn={isLoggedIn}
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-      ></LoginForm>
+      <LoginForm />
     </div>
   );
 }
 
-const LoginForm = ({ handleSubmit, setIsLoggedIn, username, password, setUsername, setPassword }: any) => {
+const LoginForm = ({ handleSubmit }: any) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const currentList: List = useSelector((state: RootState) => state.currentList);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (
-      fakeData.some((el) => el.listNumber === parseInt(username)) &&
-      fakeData.some((el) => el.password === password)
-    ) {
-      setIsLoggedIn({ listNumber: username, password: password });
-    } else if (username === '' && password === '') {
-      setIsLoggedIn(null);
+    const numberUsername = parseInt(username);
+    if (fakeData.some((el) => el.listNumber === numberUsername) && fakeData.some((el) => el.password === password)) {
+      dispatch(logIntoList({ listNumber: numberUsername, password: password, gifts: [] }));
     }
   }, [username, password]);
 

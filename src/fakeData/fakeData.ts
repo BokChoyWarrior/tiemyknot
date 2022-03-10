@@ -1,4 +1,4 @@
-const fakeData: FakeDataItem[] = [
+const fakeData: WeddingList[] = [
   {
     listNumber: 1,
     password: '1234',
@@ -73,16 +73,16 @@ const fakeData: FakeDataItem[] = [
   },
 ];
 
-export interface giftObjects {
+export interface Gift {
   title: string;
   description: string;
   status: number;
 }
 
-export interface FakeDataItem {
+export interface WeddingList {
   listNumber: number;
   password: string;
-  gifts: Array<giftObjects>;
+  gifts: Gift[];
 }
 
 export { fakeData };

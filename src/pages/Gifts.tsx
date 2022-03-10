@@ -1,21 +1,28 @@
-import { fakeData, FakeDataItem, giftObjects } from '../fakeData/fakeData';
+import { fakeData, Gift } from '../fakeData/fakeData';
 import { GiftCard } from '../components/GiftCard';
 import '../styles/Gifts.css';
 import { useEffect, useState } from 'react';
-export const Gifts = ({ isLoggedIn }: any) => {
-  const [data, setData] = useState([]);
+import { useSelector } from 'react-redux';
+import { List, RootState } from '..';
+
+export const Gifts = () => {
+  const [data, setData] = useState<Gift[]>([]);
+  const currentList: List = useSelector((state: RootState) => state.currentList);
+
   useEffect(() => {
-    if (isLoggedIn) {
-      let weddingList = fakeData.find((el: FakeDataItem) => el.listNumber === parseInt(isLoggedIn.listNumber))?.gifts;
+    if (currentList) {
+      let weddingList = fakeData.find((el) => {
+        return el.listNumber === currentList.listNumber;
+      })?.gifts;
       if (weddingList) {
-        // @ts-ignore
         setData(weddingList);
       }
     }
-  });
-  return isLoggedIn ? (
+  }, [currentList]);
+
+  return currentList ? (
     <div className="gift-cards-container">
-      {data.map((gift: giftObjects) => {
+      {data.map((gift: Gift) => {
         return <GiftCard gift={gift} />;
       })}
     </div>
