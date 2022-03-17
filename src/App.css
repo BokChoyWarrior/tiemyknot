@@ -42,6 +42,11 @@ main {
   color: white;
 }
 
+*:focus-visible,
+*:focus {
+  outline: thick double #074ee8;
+}
+
 .blueButton:hover {
   cursor: pointer;
 }
