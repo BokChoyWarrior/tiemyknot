@@ -5,7 +5,7 @@ import { List, RootState } from '..';
 
 import '../styles/NavBar.css';
 
-const NavBar = () => {
+const NavBar = (props: any) => {
   const dispatch = useDispatch();
   const currentList: List = useSelector((state: RootState) => state.currentList);
 
@@ -14,7 +14,9 @@ const NavBar = () => {
       <Link to="/">
         <img src="https://i.imgur.com/EPU5Pxt.png" alt="TieMyKnot logo" id="nav-logo" />
       </Link>
-
+      <Link to="/userLogin">
+        <div>{props.userLoggedIn ? 'Logged in' : 'User Login'}</div>
+      </Link>
       {currentList && (
         <div className="logout">
           <div> Viewing list: {currentList.listNumber}</div>
@@ -26,7 +28,7 @@ const NavBar = () => {
               dispatch(logOut());
             }}
           >
-            Logout
+            Exit Wedding List
           </Link>
         </div>
       )}
