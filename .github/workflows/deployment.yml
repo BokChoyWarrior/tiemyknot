@@ -1,30 +1,105 @@
 name: Deploy Website
 
 on:
-  push:
-    branches: [main]
+  [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Deploy to surge
+    name: Build
     steps:
       - uses: actions/checkout@v3
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
 
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - run: npm i
-      - run: npm run build
-      - run: npm i -g surge
 
+      - name: Install npm deps from package-lock
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+      
       # Make sure that a user entering a specific url will be correctly directed
       # See: https://stackoverflow.com/questions/43855529/surge-deployed-react-app-getting-404-page-not-found
       - name: Correct routing for surge
         run: |
           cd build
           cp index.html 200.html
+
+      - name: Cache build output
+        uses: actions/cache@v3
+        with:
+          path: build/
+          key: ${{ runner.os }}-build-${{ github.sha }}
+
+  cypress-run:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Restore node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: install node_modules
+        run: npm ci
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm start
+
+  deploy:
+    needs: cypress-run
+    runs-on: ubuntu-latest
+
+    #############################################
+    if: github.ref == 'refs/heads/main'
+    #############################################
+
+    steps:
+      - name: Restore cached build
+        uses: actions/cache@v3
+        with:
+          path: build/
+          key: ${{ runner.os }}-build-${{ github.sha }}
+
+      - name: Restore node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: install node_modules
+        run: npm ci
+
+      - name: Install surge
+        run: npm i -g surge
 
       - name: Deploy
         run: |
