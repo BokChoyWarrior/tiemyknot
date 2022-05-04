@@ -40,10 +40,14 @@ const LoginForm = () => {
 };
 
 const FormField = ({ label, type, hidden = false, data, setData }: any) => {
+  const handleChange = (e: any) => {
+    setData(e.target.value);
+  };
+
   return (
     <div className="form-element">
       <label>{label}</label>
-      <input type={type} value={data} onChange={(e) => setData(e.target.value)}></input>
+      <input type={type} value={data} onChange={handleChange}></input>
     </div>
   );
 };
